@@ -1,24 +1,19 @@
 version: 0.2
- 
+
 phases:
   install:
-    commands:
-      - echo Installing dependencies...
-      - yum update -y
-      - yum install -y maven  # Install Maven
-      - mvn --version  # Verify Maven installation
+    runtime-versions:
+      java: corretto11
   pre_build:
     commands:
-      - echo Pre-build phase...
-      - mvn clean  # Clean up before building
+      - echo Pre-Build Phase
   build:
     commands:
-      - echo Building the project...
-      - mvn package  # Package the application (jar/war files will be generated in the target directory)
+      - echo Build started on `date`
+      - mvn clean 
   post_build:
     commands:
-      - echo Build completed.
- 
+      - echo Build completed on `date`
 artifacts:
   files:
     - '**/*'  # Include all files
@@ -27,5 +22,6 @@ artifacts:
  
 cache:
   paths:
-    - '/root/.m2/**/*'  # Cache Maven dependencies to speed up builds
+    - '/root/.m2/**/*'  # Cache Maven dependencies to speed up builds  files:
+    - target/*.jar
 
