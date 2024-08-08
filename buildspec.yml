@@ -1,20 +1,31 @@
 version: 0.2
+ 
 phases:
   install:
-    runtime-versions:
-      java: corretto11
+    commands:
+      - echo Installing dependencies...
+      - yum update -y
+      - yum install -y maven  # Install Maven
+      - mvn --version  # Verify Maven installation
   pre_build:
     commands:
-      - echo Pre-Build Phase
+      - echo Pre-build phase...
+      - mvn clean  # Clean up before building
   build:
     commands:
-      - echo Build started on `date`
-      - mvn clean install
+      - echo Building the project...
+      - mvn package  # Package the application (jar/war files will be generated in the target directory)
   post_build:
     commands:
-      - echo Build completed on `date`
-      - ls -la target
+      - echo Build completed.
+ 
 artifacts:
   files:
-    - target/*.jar
+    - '**/*'  # Include all files
+  base-directory: 'target'  # This is where Maven typically places the build artifacts
+  discard-paths: no  # Keep directory structure in the artifact
+ 
+cache:
+  paths:
+    - '/root/.m2/**/*'  # Cache Maven dependencies to speed up builds
 
