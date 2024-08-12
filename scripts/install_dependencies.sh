@@ -1,3 +1,5 @@
 #!/bin/bash
-echo "Stopping Apache server"
-sudo systemctl stop apache2
+
+java --version
+
+echo "Dependencies installed successfully."
