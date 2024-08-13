@@ -1,16 +1,11 @@
 #!/bin/bash
- 
-# Echo a message for logging
-echo "Starting Apache server"
- 
-# Start the Apache service
-sudo systemctl start apache2
- 
-# Check if the Apache service started successfully
-if systemctl is-active --quiet apache2; then
-    echo "Apache is running"
-    exit 0
-else
-    echo "Apache failed to start"
-    exit 1
-fi
+
+# Change to the application directory
+echo "Changing directory to /home/ubuntu/target..."
+cd /home/ubuntu/
+
+# Start the application server
+echo "Starting the server..."
+java -jar /target/*.jar > /dev/null 2>&1 &
+
+echo "Server started successfully."
